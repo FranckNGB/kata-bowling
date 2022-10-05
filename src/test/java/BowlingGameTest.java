@@ -5,7 +5,7 @@ class BowlingGameTest {
     @Test
     public void WhenAPlayerKnocksZeroPins_ThenTheScoreMustBeZero() {
         // Given
-        Game newBowlingGame = new Game();
+        Game newBowlingGame = new Game(1);
 
         // When
         newBowlingGame.roll(0);
@@ -17,7 +17,7 @@ class BowlingGameTest {
     @Test
     public void WhenAPlayerKnocksOnePin_ThenTheScoreMustBeOne() {
         // Given
-        Game newBowlingGame = new Game();
+        Game newBowlingGame = new Game(1);
 
         // When
         newBowlingGame.roll(1);
@@ -29,7 +29,7 @@ class BowlingGameTest {
     @Test
     public void WhenAPlayerKnocksSixPins_ThenTheScoreMustBeSix() {
         // Given
-        Game newBowlingGame = new Game();
+        Game newBowlingGame = new Game(4);
 
         // When
         newBowlingGame.roll(2);
