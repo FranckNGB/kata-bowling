@@ -2,8 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Game {
-    List<Integer> rolls = new ArrayList<Integer>();
-
+    List<Integer> rolls = new ArrayList<>();
 
     void roll(int pins) {
         rolls.add(pins);
