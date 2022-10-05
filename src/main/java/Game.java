@@ -1,15 +1,18 @@
+import java.util.ArrayList;
+import java.util.List;
+
 class Game {
-    private int[] rolls = new int[21];
+    List<Integer> rolls = new ArrayList<Integer>();
 
 
     void roll(int pins) {
-        rolls[1] = pins;
+        rolls.add(pins);
     }
 
     public int score() {
-        int totalScore = 0;
-        for (var i = 0; i < 10; i++) {
-            totalScore = totalScore + (rolls[i] = rolls[i + 1]);
+        var totalScore = 0;
+        for (Integer roll : rolls) {
+            totalScore = totalScore + roll;
         }
         return totalScore;
     }
