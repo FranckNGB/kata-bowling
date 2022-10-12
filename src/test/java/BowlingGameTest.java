@@ -9,6 +9,7 @@ class BowlingGameTest {
 
         // When
         newBowlingGame.roll(0);
+        newBowlingGame.roll(0);
 
         // Then
         assertThat(newBowlingGame.score()).isEqualTo(0);
@@ -21,6 +22,7 @@ class BowlingGameTest {
 
         // When
         newBowlingGame.roll(1);
+        newBowlingGame.roll(0);
 
         // Then
         assertThat(newBowlingGame.score()).isEqualTo(1);
@@ -32,10 +34,8 @@ class BowlingGameTest {
         Game newBowlingGame = new Game(4);
 
         // When
+        newBowlingGame.roll(4);
         newBowlingGame.roll(2);
-        newBowlingGame.roll(2);
-        newBowlingGame.roll(1);
-        newBowlingGame.roll(1);
 
         // Then
         assertThat(newBowlingGame.score()).isEqualTo(6);

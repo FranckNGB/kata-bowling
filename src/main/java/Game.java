@@ -3,11 +3,11 @@ import java.util.List;
 
 class Game {
     List<Integer> rolls;
-    int nbrRolls;
+    int pinsKnockedByFrame;
 
-    Game(int nbrRolls) {
-        this.rolls = new ArrayList<>(nbrRolls);
-        this.nbrRolls = nbrRolls;
+    Game(int nbrPins) {
+        this.rolls = new ArrayList<>(nbrPins);
+        this.pinsKnockedByFrame = nbrPins;
     }
 
     void roll(int pins) {
