@@ -42,15 +42,15 @@ class BowlingGameScoreTest {
     }
 
     @Test
-    public void WhenAPlayerKnocksTenPins_ThenTheScoreMustBeTen() {
+    public void WhenAPlayerKnocksNinePins_ThenTheScoreMustBeNine() {
         // Given
         Game existingBowlingGame = new Game();
 
         // When
         existingBowlingGame.roll(5);
-        existingBowlingGame.roll(5);
+        existingBowlingGame.roll(4);
 
         // Then
-        assertThat(existingBowlingGame.score()).isEqualTo(10);
+        assertThat(existingBowlingGame.score()).isEqualTo(9);
     }
 }
