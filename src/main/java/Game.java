@@ -1,23 +1,19 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 class Game {
-    List<Integer> scoreByFrames;
-    int pinsKnockedByFrame;
+    Map<Integer, Integer> framesScores = new HashMap<>(10);
+    int CURRENT_FRAME_SELECTED = 0;
 
-    Game(int nbrPins) {
-        this.scoreByFrames = new ArrayList<>(nbrPins);
-        this.pinsKnockedByFrame = nbrPins;
-    }
-
-    void roll(int pins) {
-        scoreByFrames.add(pins);
+    void roll(int nbrPins) {
+        framesScores.put(CURRENT_FRAME_SELECTED, nbrPins);
+        CURRENT_FRAME_SELECTED++;
     }
 
     public int score() {
         var totalScore = 0;
-        for (Integer roll : scoreByFrames) {
-            totalScore = totalScore + roll;
+        for (Map.Entry<Integer, Integer> frameScore : framesScores.entrySet()) {
+            totalScore = totalScore + frameScore.getValue();
         }
         return totalScore;
     }
