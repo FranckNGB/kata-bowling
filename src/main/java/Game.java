@@ -1,54 +1,51 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 class Game {
-    public boolean isASpare = false;
-    public boolean isAStrike = false;
-    Map<Integer, Integer> framesScores  = new HashMap<>() {{
-        put(1, 0);
-        put(2, 0);
-        put(3, 0);
-        put(4, 0);
-        put(5, 0);
-        put(6, 0);
-        put(7, 0);
-        put(8, 0);
-        put(9, 0);
-        put(10, 0);
-    }};
+    ArrayList<GameFrame> framesScores = new ArrayList<>(Arrays.asList(
+            new GameFrame(0, 0, FrameAction.NONE),
+            new GameFrame(1, 0, FrameAction.NONE),
+            new GameFrame(2, 0, FrameAction.NONE),
+            new GameFrame(3, 0, FrameAction.NONE),
+            new GameFrame(4, 0, FrameAction.NONE),
+            new GameFrame(5, 0, FrameAction.NONE),
+            new GameFrame(6, 0, FrameAction.NONE),
+            new GameFrame(7, 0, FrameAction.NONE),
+            new GameFrame(8, 0, FrameAction.NONE),
+            new GameFrame(9, 0, FrameAction.NONE)
 
-    static int CURRENT_FRAME_SELECTED = 1;
+    ));
+
+    static int CURRENT_FRAME_SELECTED = 0;
     static int CURRENT_ROLL_SELECTED = 0;
+    static int bonusScore = 0;
 
     void roll(int nbrPinsKnocked) {
-        if (CURRENT_ROLL_SELECTED % 2 == 0 && !isAStrike) {
-            checkIfIsASpare();
+        if (CURRENT_ROLL_SELECTED != 0 && CURRENT_ROLL_SELECTED % 2 == 0 && framesScores.get(CURRENT_FRAME_SELECTED).action() != FrameAction.STRIKE) {
             CURRENT_FRAME_SELECTED++;
         }
         CURRENT_ROLL_SELECTED++;
-        framesScores.put(CURRENT_FRAME_SELECTED, framesScores.get(CURRENT_FRAME_SELECTED) + nbrPinsKnocked);
-        checkIfIsAStrike(nbrPinsKnocked);
+        var scoreOfTheFrame = framesScores.get(CURRENT_FRAME_SELECTED).score() + nbrPinsKnocked;
+        framesScores.set(CURRENT_FRAME_SELECTED, new GameFrame(CURRENT_FRAME_SELECTED, scoreOfTheFrame, FrameAction.NONE));
+        setActionOnFrame(CURRENT_ROLL_SELECTED);
     }
 
-    private void checkIfIsAStrike(int nbrPins) {
-        if (nbrPins == 10) {
-            isAStrike = true;
-            CURRENT_FRAME_SELECTED++;
+    private void setActionOnFrame(int rollIndex) {
+        if (framesScores.get(CURRENT_FRAME_SELECTED).score() == 10 && rollIndex % 2 == 0) {
+            framesScores.set(CURRENT_FRAME_SELECTED, new GameFrame(CURRENT_FRAME_SELECTED, framesScores.get(CURRENT_FRAME_SELECTED).score(), FrameAction.SPARE));
         }
-    }
-
-    private void checkIfIsASpare() {
-        if (framesScores.get(CURRENT_FRAME_SELECTED) == 10) {
-            isASpare = true;
+        else if (framesScores.get(CURRENT_FRAME_SELECTED).score() == 10 && rollIndex == 1) {
+            framesScores.set(CURRENT_FRAME_SELECTED, new GameFrame(CURRENT_FRAME_SELECTED, framesScores.get(CURRENT_FRAME_SELECTED).score(), FrameAction.STRIKE));
+            CURRENT_FRAME_SELECTED++;
         }
     }
 
     public int score() {
         var totalScore = 0;
-        for (Map.Entry<Integer, Integer> frameScore : framesScores.entrySet()) {
-            totalScore = totalScore + frameScore.getValue();
+        for (GameFrame frame: framesScores) {
+            totalScore = totalScore + frame.score();
         }
         System.out.println(framesScores);
-        return totalScore;
+        return totalScore + bonusScore;
     }
 }

@@ -18,8 +18,8 @@ public class BowlingGameStrikeTest {
         existingBowlingGame.roll(bonusScoreSecondNextRoll);
 
         // Then
+        var updatedFrame = existingBowlingGame.framesScores.get(0);
         assertThat(existingBowlingGame.score()).isEqualTo(19);
-        assertThat(existingBowlingGame.isASpare).isEqualTo(false);
-        assertThat(existingBowlingGame.isAStrike).isEqualTo(true);
+        assertThat(updatedFrame.action()).isEqualTo(FrameAction.STRIKE);
     }
 }

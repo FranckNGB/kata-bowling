@@ -16,8 +16,8 @@ public class BowlingGameSpareTest {
         existingBowlingGame.roll(bonusScore);
 
         // Then
+        var updatedFrame = existingBowlingGame.framesScores.get(0);
         assertThat(existingBowlingGame.score()).isEqualTo(13);
-        assertThat(existingBowlingGame.isAStrike).isEqualTo(false);
-        assertThat(existingBowlingGame.isASpare).isEqualTo(true);
+        assertThat(updatedFrame.action()).isEqualTo(FrameAction.SPARE);
     }
 }
